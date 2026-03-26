@@ -68,7 +68,30 @@ Receives a meal object with fields like:
   strIngredientX, strMeasureX, etc.
 */
 function displayMealData(meal) {
-    // Fill in
+    const container = document.getElementById("meal-container"); //Henter elementet med id "meal-container" og lagrer det i variabelen container
+
+    let ingredientsList = ""; //Lager en tom string til ingredienslisten
+
+    for (let i = 1; i<= 20; i++) { //itererer fra 1 til 20 for å hente ingrediensene og målene
+      const ingredient = meal["strIngredient" + i]; //Henter ingrediensnavnet fra meal objektet
+      const measure = meal["strMeasure" + i]; //Henter målet for ingrediensen 
+
+      if (ingredient && ingredient.trim() !== "") { //Sjekker om ingrediensen finnes, trim hopper over tomme felt
+        ingredientsList += "<li>" + measure + " " + ingredient + "</li>"; //Legger til ingrediensen og målet i ingredienslisten som et listeobjekt
+      }
+    }
+
+    //Setter inn HTML-koden i container-elementet for å vise måltidets navn, bilde, kategori, instruksjoner og ingredienser
+    //brukte template literals for å gjøre det enklere og ryddigere
+    container.innerHTML = `
+      <h2>${meal.strMeal}</h2>
+      <img src="${meal.strMealThumb}" alt="${meal.strMeal}" style="width:300px;">
+      <h3>Category: ${meal.strCategory}</h3>
+      <h3>Instructions:</h3>
+      <p>${meal.strInstructions}</p>
+      <h3>Ingredients:</h3>
+      <ul>${ingredientsList}</ul>
+    `; 
 }
 
 /*
