@@ -49,7 +49,16 @@ function init() {
  Returns a Promise that resolves with the meal object
  */
 function fetchRandomMeal() {
-    // Fill in
+    var TheMealDB_URL = "https://www.themealdb.com/api/json/v1/1/random.php"; //Lager en variabel med URL til TheMealDB APIet
+
+    return fetch(TheMealDB_URL) //sender en forespørsel til APIet og returnerer en Promise
+    .then(response => response.json()) //konverterer responsen til JavaScript-data
+    .then(data => { 
+      console.log(data); //Skriver hele dataten til konsollen
+
+    const meal = data.meals[0]; //lager en variabel meal som inneholder det første måltiden i arrayen data.meals
+    return meal; //returnerer meal-objektet
+  });
 }
 
 /*
