@@ -112,7 +112,7 @@ If no cocktails found, fetch random
 */
 function fetchCocktailByDrinkIngredient(drinkIngredient) {
     // Fill in
-    const DRINK_MATCH_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=DRINK_INGREDIENT';
+    const DRINK_MATCH_URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(drinkIngredient)}`;
 
     return fetch(DRINK_MATCH_URL) //sender en forespørsel til APIet og returnerer en Promise
     .then(response => response.json()) //konverterer responsen til JavaScript-data
@@ -134,7 +134,6 @@ Returns a Promise that resolves to cocktail object
 */
 function fetchRandomCocktail() {
     // Fill in
-    
 }
 
 /*
