@@ -87,10 +87,13 @@ function displayMealData(meal) {
       <h2>${meal.strMeal}</h2>
       <img src="${meal.strMealThumb}" alt="${meal.strMeal}" style="width:300px;">
       <h3>Category: ${meal.strCategory}</h3>
-      <h3>Instructions:</h3>
-      <p>${meal.strInstructions}</p>
+      <h3>Origin: ${meal.strArea}</h3>
+      <br>
       <h3>Ingredients:</h3>
       <ul>${ingredientsList}</ul>
+      <br>
+      <h3>Instructions:</h3>
+      <p>${meal.strInstructions}</p>
     `; 
 }
 
@@ -168,10 +171,13 @@ function displayCocktailData(cocktail) {
       <h2>${cocktail.strDrink}</h2>
       <img src="${cocktail.strDrinkThumb}" alt="${cocktail.strDrink}" style="width:300px;">
       <h3>Category: ${cocktail.strCategory}</h3>
-      <h3>Instructions:</h3>
-      <p>${cocktail.strInstructions}</p>
+      <h3>Glass: ${cocktail.strGlass}</h3>
+      <br>
       <h3>Ingredients:</h3>
       <ul>${ingredientsList}</ul>
+      <br>
+      <h3>Instructions:</h3>
+      <p>${cocktail.strInstructions}</p>
     `; 
 }
 
