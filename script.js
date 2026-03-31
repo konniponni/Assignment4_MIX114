@@ -111,20 +111,19 @@ Don't forget encodeURIComponent()
 If no cocktails found, fetch random
 */
 function fetchCocktailByDrinkIngredient(drinkIngredient) {
-    // Fill in
-    const DRINK_MATCH_URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(drinkIngredient)}`;
+    const drinkMatchUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(drinkIngredient)}`;
 
-    return fetch(DRINK_MATCH_URL) //sender en forespørsel til APIet og returnerer en Promise
+    return fetch(drinkMatchUrl) //Sender en forespørsel til APIet og returnerer en Promise
     .then(response => response.json()) //konverterer responsen til JavaScript-data
     .then(data => { 
-      console.log(data); //Skriver hele dataten til konsollen
+      console.log(data); // Skriver hele dataten til konsollen
 
       if (data.drinks && data.drinks.length > 0) {
-        return data.drinks[0]; // Retunerer det første elementet i arrayen fra linken
+        return data.drinks[0]; // Hvis det finnes treff, returnerer første cocktail fra resultatlisten
       }
 
       else {
-        return fetchRandomCocktail();
+        return fetchRandomCocktail(); // Hvis ingen cocktails finnes, hentes en tilfeldig cocktail
       }
   });
 }
@@ -134,17 +133,15 @@ Fetch a Random Cocktail (backup in case nothing is found by the search)
 Returns a Promise that resolves to cocktail object
 */
 function fetchRandomCocktail() {
-    // Fill in
+    const randomDrinkUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
-    const RANDOM_DRINK_URL = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-
-    return fetch(RANDOM_DRINK_URL)
-      .then(response => response.json())
+    return fetch(randomDrinkUrl)
+      .then(response => response.json()) //konverterer responsen til JavaScript-data
       .then(data => {
 
-        console.log(data);
+        console.log(data); //Skriver hele dataten til konsollen
 
-        return data.drinks[0];
+        return data.drinks[0]; // Retunerer den første cocktailen i arrayen fra linken
       });
 }
 
@@ -152,21 +149,21 @@ function fetchRandomCocktail() {
 Display Cocktail Data in the DOM
 */
 function displayCocktailData(cocktail) {
-    // Fill in
+    const container = document.getElementById("cocktail-container"); //Henter elementet med id "coctail-container" og lagrer det i variabelen container
 
-    const container = document.getElementById("cocktail-container");
+    let ingredientsList = ""; //Lager en tom string til ingredienslisten
 
-    let ingredientsList = "";
+    for (let i = 1; i <= 15; i++) { //itererer fra 1 til 15 for å hente ingrediensene og måle-enhetene
+      const ingredient = cocktail["strIngredient" + i]; //Henter ingrediensnavnet fra coctail objektet
+      const measure = cocktail["strMeasure" + i]; //Henter måle-enheten for ingrediensen 
 
-    for (let i = 1; i <= 15; i++) {
-      const ingredient = cocktail["strIngredient" + i];
-      const measure = cocktail["strMeasure" + i];
-
-      if (ingredient && ingredient.trim() !== "") {
+      if (ingredient && ingredient.trim() !== "") { //Sjekker om ingrediensen finnes, trim hopper over tomme felt
         ingredientsList += "<li>" + measure + " " + ingredient + "</li>"; //Legger til ingrediensen og målet i ingredienslisten som et listeobjekt
       }
     }
 
+
+    // samme som ved "displayMealData", men med coctail.str.Drink(…)i stedet for meal.strMeal(…)
     container.innerHTML = `
       <h2>${cocktail.strDrink}</h2>
       <img src="${cocktail.strDrinkThumb}" alt="${cocktail.strDrink}" style="width:300px;">
