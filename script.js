@@ -126,7 +126,8 @@ function fetchCocktailByDrinkIngredient(drinkIngredient) {
       else {
         return fetchRandomCocktail();
       }
-});
+  });
+}
 
 /*
 Fetch a Random Cocktail (backup in case nothing is found by the search)
@@ -134,6 +135,17 @@ Returns a Promise that resolves to cocktail object
 */
 function fetchRandomCocktail() {
     // Fill in
+
+    const RANDOM_DRINK_URL = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+
+    return fetch(RANDOM_DRINK_URL)
+      .then(response => response.json())
+      .then(data => {
+
+        console.log(data);
+
+        return data.drinks[0];
+      });
 }
 
 /*
