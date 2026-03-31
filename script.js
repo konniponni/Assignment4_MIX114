@@ -153,6 +153,29 @@ Display Cocktail Data in the DOM
 */
 function displayCocktailData(cocktail) {
     // Fill in
+
+    const container = document.getElementById("cocktail-container");
+
+    let ingredientsList = "";
+
+    for (let i = 1; i <= 15; i++) {
+      const ingredient = cocktail["strIngredient" + i];
+      const measure = cocktail["strMeasure" + i];
+
+      if (ingredient && ingredient.trim() !== "") {
+        ingredientsList += "<li>" + measure + " " + ingredient + "</li>"; //Legger til ingrediensen og målet i ingredienslisten som et listeobjekt
+      }
+    }
+
+    container.innerHTML = `
+      <h2>${cocktail.strDrink}</h2>
+      <img src="${cocktail.strDrinkThumb}" alt="${cocktail.strDrink}" style="width:300px;">
+      <h3>Category: ${cocktail.strCategory}</h3>
+      <h3>Instructions:</h3>
+      <p>${cocktail.strInstructions}</p>
+      <h3>Ingredients:</h3>
+      <ul>${ingredientsList}</ul>
+    `; 
 }
 
 /*
